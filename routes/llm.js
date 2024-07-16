@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const express = require("express");
-const { generatePrompt } = require("../prompt/prompt");
+const { basePrompt, secondPrompt } = require("../prompt/prompt");
 const router = express.Router();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
@@ -21,8 +21,9 @@ router.post("/ai", async function (req, res, next) {
   try {
     const type = req.body.type;
     const desrciption = req.body.desrciption;
-    const promptText = req.body.prompt || generatePrompt(type, desrciption);
-    const responseText = await llmDataGetter(promptText);
+    const promptText = req.body.prompt || basePrompt(type, desrciption);
+    const secText = secondPrompt(promptText);
+    const responseText = await llmDataGetter(secText);
     res.json({ result: responseText });
   } catch (error) {
     console.error(error);

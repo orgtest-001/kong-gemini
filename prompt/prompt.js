@@ -1,4 +1,4 @@
-const generatePrompt = (type, desrciption) => `
+const basePrompt = (type, desrciption) => `
     Please provide daily recommendations for someone who wants to achieve the goal of ${type} and ${desrciption}.
     If the goal is "CAREER" and "Success Developer", the recommendations should look like this:
     
@@ -39,4 +39,18 @@ const generatePrompt = (type, desrciption) => `
     desrciption : ${desrciption}
 `;
 
-module.exports = { generatePrompt };
+const secondPrompt = (input) => {
+  `
+    Based on ${input} what is output?
+    such as if input is
+    1. example A
+    2. example B
+    3. example C
+    4. example D
+    5. exmaple E
+    output should be how to do A with detail and it should be noun like if one of input is playing football,
+    outputs are dribbling the ball, passing the ball 20minutes, running around 30minutes wiht 10km/h and so on
+  `;
+};
+
+module.exports = { basePrompt, secondPrompt };
